@@ -1,7 +1,7 @@
-"use client";
+﻿"use client";
 
 import { useState, useCallback } from "react";
-import { BubbleMenu } from "@tiptap/react";
+import { BubbleMenu } from "@tiptap/react/menus";
 import type { Editor } from "@tiptap/react";
 
 interface EditorBubbleMenuProps {

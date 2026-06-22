@@ -39,7 +39,7 @@ export default function WorkspaceSettingsPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-full">
-        <div className="text-text-tertiary text-sm">Loading workspace settings¡­</div>
+        <div className="text-text-tertiary text-sm">Loading workspace settingsÂ¡Â­</div>
       </div>
     );
   }
@@ -177,7 +177,7 @@ export default function WorkspaceSettingsPage() {
             className="px-4 py-2 rounded-lg bg-accent text-accent-text text-sm font-medium
               hover:bg-accent-hover transition-colors disabled:opacity-50 whitespace-nowrap"
           >
-            {invite.isPending ? "Inviting¡­" : "Invite"}
+            {invite.isPending ? "InvitingÂ¡Â­" : "Invite"}
           </button>
         </form>
         {invite.isSuccess && (
@@ -259,7 +259,7 @@ export default function WorkspaceSettingsPage() {
               className="px-4 py-2 rounded-lg border border-error text-error text-sm font-medium
                 hover:bg-error/10 transition-colors disabled:opacity-50"
             >
-              {deleteWorkspace.isPending ? "Deleting¡­" : "Delete workspace"}
+              {deleteWorkspace.isPending ? "DeletingÂ¡Â­" : "Delete workspace"}
             </button>
           </div>
         </div>

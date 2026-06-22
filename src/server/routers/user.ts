@@ -1,4 +1,4 @@
-import { z } from "zod";
+﻿import { z } from "zod";
 import { router, protectedProcedure } from "../trpc";
 import { hashPassword, comparePasswords } from "../auth";
 import { TRPCError } from "@trpc/server";
@@ -83,7 +83,7 @@ export const userRouter = router({
 
   deleteAccount: protectedProcedure.mutation(async ({ ctx }) => {
     // Cascade cleanup: remove user's favorites, memberships, comments, and owned workspaces
-    await ctx.prisma.([
+    await ctx.prisma.$transaction([
       ctx.prisma.favorite.deleteMany({ where: { userId: ctx.userId } }),
       ctx.prisma.comment.deleteMany({ where: { authorId: ctx.userId } }),
       ctx.prisma.member.deleteMany({ where: { userId: ctx.userId } }),
@@ -92,3 +92,4 @@ export const userRouter = router({
     return { success: true };
   }),
 });
+

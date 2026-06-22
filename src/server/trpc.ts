@@ -38,7 +38,7 @@ export const publicProcedure = t.procedure;
 export const middleware = t.middleware;
 
 /**
- * Auth middleware ¡ª requires authenticated user and injects full user record.
+ * Auth middleware Â¡Âª requires authenticated user and injects full user record.
  */
 const authMiddleware = middleware(async ({ ctx, next }) => {
   if (!ctx.user) {
@@ -72,12 +72,12 @@ const authMiddleware = middleware(async ({ ctx, next }) => {
 });
 
 /**
- * Protected procedure ¡ª requires authenticated user.
+ * Protected procedure Â¡Âª requires authenticated user.
  */
 export const protectedProcedure = t.procedure.use(authMiddleware);
 
 /**
- * Workspace procedure ¡ª requires authenticated user and a valid workspace membership.
+ * Workspace procedure Â¡Âª requires authenticated user and a valid workspace membership.
  * Workspace ID is extracted from the x-workspace-id header.
  */
 const workspaceMiddleware = middleware(async ({ ctx, next }) => {

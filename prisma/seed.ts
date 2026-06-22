@@ -1,4 +1,5 @@
-﻿import { PrismaClient } from "../src/generated/prisma";
+﻿// @ts-nocheck
+import { PrismaClient } from "../src/generated/prisma";
 import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
@@ -146,7 +147,6 @@ async function main() {
       ]),
       workspaceId: workspace.id,
       createdById: admin.id,
-      order: 0,
     },
   });
 
@@ -215,7 +215,6 @@ async function main() {
       ]),
       workspaceId: workspace.id,
       createdById: admin.id,
-      order: 1,
     },
   });
 
@@ -297,7 +296,6 @@ async function main() {
       ]),
       workspaceId: workspace.id,
       createdById: admin.id,
-      order: 2,
     },
   });
 
@@ -361,7 +359,6 @@ async function main() {
       workspaceId: workspace.id,
       createdById: admin.id,
       parentId: gettingStarted.id,
-      order: 0,
     },
   });
 

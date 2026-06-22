@@ -59,7 +59,7 @@ export default function PageEditorPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-full">
-        <div className="text-text-tertiary text-sm">Loading page¡­</div>
+        <div className="text-text-tertiary text-sm">Loading pageÂ¡Â­</div>
       </div>
     );
   }
@@ -144,7 +144,7 @@ export default function PageEditorPage() {
             <BlockEditor
               initialContent={content}
               onSave={handleSaveContent}
-              placeholder="Start writing, or type '/' for commands¡­"
+              placeholder="Start writing, or type '/' for commandsÂ¡Â­"
             />
           </div>
         </div>

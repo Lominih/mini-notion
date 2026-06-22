@@ -27,7 +27,7 @@ export default function SettingsPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-full">
-        <div className="text-text-tertiary text-sm">Loading settings¡­</div>
+        <div className="text-text-tertiary text-sm">Loading settingsÂ¡Â­</div>
       </div>
     );
   }
@@ -182,7 +182,7 @@ export default function SettingsPage() {
             className="px-4 py-2 rounded-lg bg-accent text-accent-text text-sm font-medium
               hover:bg-accent-hover transition-colors disabled:opacity-50"
           >
-            {changePassword.isPending ? "Changing¡­" : "Change password"}
+            {changePassword.isPending ? "ChangingÂ¡Â­" : "Change password"}
           </button>
         </form>
       </section>
@@ -204,7 +204,7 @@ export default function SettingsPage() {
               className="px-4 py-2 rounded-lg border border-error text-error text-sm font-medium
                 hover:bg-error/10 transition-colors disabled:opacity-50"
             >
-              {deleteAccount.isPending ? "Deleting¡­" : "Delete account"}
+              {deleteAccount.isPending ? "DeletingÂ¡Â­" : "Delete account"}
             </button>
           </div>
         </div>

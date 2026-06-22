@@ -271,7 +271,7 @@ export function CommandPalette({ workspaceId }: CommandPaletteProps) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Search or type a command¡­"
+            placeholder="Search or type a commandÂ¡Â­"
             className="flex-1 h-12 bg-transparent text-text-primary text-sm outline-none placeholder:text-text-placeholder"
           />
           <kbd className="text-xs text-text-tertiary font-mono border border-border-default rounded px-1.5 py-0.5">
@@ -323,7 +323,7 @@ export function CommandPalette({ workspaceId }: CommandPaletteProps) {
         {/* Footer */}
         <div className="flex items-center gap-4 px-4 py-2 border-t border-border-default text-xs text-text-tertiary">
           <span className="flex items-center gap-1">
-            <kbd className="font-mono border border-border-default rounded px-1 py-0.5">¡ü¡ý</kbd>
+            <kbd className="font-mono border border-border-default rounded px-1 py-0.5">Â¡Ã¼Â¡Ã½</kbd>
             Navigate
           </span>
           <span className="flex items-center gap-1">

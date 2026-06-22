@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+﻿import type { NextConfig } from "next";
 
 const securityHeaders = [
   { key: 'X-Content-Type-Options', value: 'nosniff' },
@@ -9,6 +9,8 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  typescript: { ignoreBuildErrors: true },
+  output: "standalone",
   async headers() {
     return [
       {

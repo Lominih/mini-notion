@@ -153,7 +153,7 @@ export default function RegisterPage() {
             className="w-full py-2.5 rounded-lg bg-accent text-accent-text text-sm font-medium
               hover:bg-accent-hover transition-colors disabled:opacity-50"
           >
-            {loading ? "Creating account¡­" : "Create account"}
+            {loading ? "Creating accountÂ¡Â­" : "Create account"}
           </button>
         </form>
 

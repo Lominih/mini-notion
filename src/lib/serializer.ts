@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------------ */
-/*  Mini Notion �?Page Content Serializer                               */
+/*  Mini Notion â?Page Content Serializer                               */
 /*  Converts between TipTap JSON, Markdown, and plain-text blocks.      */
 /* ------------------------------------------------------------------ */
 
@@ -26,7 +26,7 @@ export interface TipTapDoc {
 }
 
 /* ================================================================== */
-/*  TipTap JSON �?Markdown                                             */
+/*  TipTap JSON â?Markdown                                             */
 /* ================================================================== */
 
 function serializeMarks(text: string, marks?: TipTapMark[]): string {
@@ -173,7 +173,7 @@ export function tiptapToMarkdown(json: string | TipTapDoc): string {
 }
 
 /* ================================================================== */
-/*  Markdown �?TipTap JSON                                             */
+/*  Markdown â?TipTap JSON                                             */
 /* ================================================================== */
 
 export function markdownToTipTap(markdown: string): TipTapDoc {
@@ -184,7 +184,7 @@ export function markdownToTipTap(markdown: string): TipTapDoc {
   while (i < lines.length) {
     const line = lines[i];
 
-    // Empty line �?paragraph break
+    // Empty line â?paragraph break
     if (line.trim() === "") {
       i++;
       continue;
@@ -476,7 +476,7 @@ function parseMarkdownTable(
 }
 
 /* ================================================================== */
-/*  Plain Text �?TipTap JSON blocks                                    */
+/*  Plain Text â?TipTap JSON blocks                                    */
 /* ================================================================== */
 
 export function plainTextToBlocks(text: string): TipTapDoc {

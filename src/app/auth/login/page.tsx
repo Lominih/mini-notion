@@ -99,7 +99,7 @@ export default function LoginPage() {
             className="w-full py-2.5 rounded-lg bg-accent text-accent-text text-sm font-medium
               hover:bg-accent-hover transition-colors disabled:opacity-50"
           >
-            {loading ? "Signing in¡­" : "Sign in"}
+            {loading ? "Signing inÂ¡Â­" : "Sign in"}
           </button>
         </form>
 

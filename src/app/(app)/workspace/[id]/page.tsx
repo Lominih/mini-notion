@@ -32,7 +32,7 @@ export default function WorkspacePage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-full">
-        <div className="text-text-tertiary text-sm">Loading workspace¡­</div>
+        <div className="text-text-tertiary text-sm">Loading workspaceÂ¡Â­</div>
       </div>
     );
   }

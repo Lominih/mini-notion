@@ -29,7 +29,7 @@ export default function DashboardPage() {
   if (loadingWorkspaces) {
     return (
       <div className="flex items-center justify-center h-full">
-        <div className="text-text-tertiary text-sm">Loading¡­</div>
+        <div className="text-text-tertiary text-sm">LoadingÂ¡Â­</div>
       </div>
     );
   }
@@ -68,7 +68,7 @@ export default function DashboardPage() {
           {currentWorkspace?.icon} {currentWorkspace?.name}
         </h1>
         <p className="text-text-secondary text-sm mt-1">
-          {currentWorkspace?.memberCount} member{currentWorkspace?.memberCount !== 1 ? "s" : ""} ¡¤ {currentWorkspace?.pageCount} page{currentWorkspace?.pageCount !== 1 ? "s" : ""}
+          {currentWorkspace?.memberCount} member{currentWorkspace?.memberCount !== 1 ? "s" : ""} Â¡Â¤ {currentWorkspace?.pageCount} page{currentWorkspace?.pageCount !== 1 ? "s" : ""}
         </p>
       </div>
 
@@ -104,7 +104,7 @@ export default function DashboardPage() {
           Recent pages
         </h2>
         {loadingRecent ? (
-          <div className="text-sm text-text-tertiary py-4">Loading recent pages¡­</div>
+          <div className="text-sm text-text-tertiary py-4">Loading recent pagesÂ¡Â­</div>
         ) : recentPages && recentPages.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {recentPages.map((page: { id: string; title: string; icon: string | null; updatedAt: string }) => (
@@ -153,7 +153,7 @@ export default function DashboardPage() {
                 <div className="min-w-0 flex-1">
                   <h3 className="text-sm font-medium text-text-primary truncate">{ws.name}</h3>
                   <p className="text-xs text-text-tertiary">
-                    {ws.memberCount} member{ws.memberCount !== 1 ? "s" : ""} ¡¤ {ws.pageCount} page{ws.pageCount !== 1 ? "s" : ""}
+                    {ws.memberCount} member{ws.memberCount !== 1 ? "s" : ""} Â¡Â¤ {ws.pageCount} page{ws.pageCount !== 1 ? "s" : ""}
                   </p>
                 </div>
                 <span className="text-xs text-text-tertiary capitalize">{ws.role.toLowerCase()}</span>

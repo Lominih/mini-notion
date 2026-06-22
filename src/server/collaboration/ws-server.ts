@@ -42,10 +42,10 @@ export function createCollaborationServer(httpServer: HttpServer): Server {
     pingTimeout: 10000,
   });
 
-  // Room �?set of connected client infos
+  // Room â?set of connected client infos
   const rooms = new Map<string, Map<string, ClientInfo>>();
 
-  // Doc �?doc listeners so we can unsubscribe on room empty
+  // Doc â?doc listeners so we can unsubscribe on room empty
   const docListeners = new Map<string, (update: Uint8Array, origin: unknown) => void>();
 
   const collabNamespace = io.of("/collab");
@@ -56,7 +56,7 @@ export function createCollaborationServer(httpServer: HttpServer): Server {
 
     console.log(`[Collab] Client connected: ${socket.id}`);
 
-    // ── Join Room ──────────────────────────────────
+    // ââ Join Room ââââââââââââââââââââââââââââââââââ
     socket.on("join-room", async (data: { pageId: string; userId: string; userName: string; userAvatar?: string }) => {
       const { pageId, userId, userName, userAvatar } = data;
 
@@ -85,7 +85,7 @@ export function createCollaborationServer(httpServer: HttpServer): Server {
       await joinRoom(socket, pageId, clientInfo);
     });
 
-    // ── Yjs Update ─────────────────────────────────
+    // ââ Yjs Update âââââââââââââââââââââââââââââââââ
     socket.on("yjs-update", (data: { pageId: string; update: number[] }) => {
       if (!data.pageId || !data.update) return;
 
@@ -102,7 +102,7 @@ export function createCollaborationServer(httpServer: HttpServer): Server {
       }
     });
 
-    // ── Yjs Sync (request full state) ──────────────
+    // ââ Yjs Sync (request full state) ââââââââââââââ
     socket.on("yjs-sync-request", async (data: { pageId: string; stateVector?: number[] }) => {
       if (!data.pageId) return;
 
@@ -116,7 +116,7 @@ export function createCollaborationServer(httpServer: HttpServer): Server {
       });
     });
 
-    // ── Awareness Update ────────────────────────────
+    // ââ Awareness Update ââââââââââââââââââââââââââââ
     socket.on("yjs-awareness", (data: { pageId: string; awareness: AwarenessState }) => {
       if (!data.pageId || !data.awareness || !clientInfo) return;
 
@@ -135,7 +135,7 @@ export function createCollaborationServer(httpServer: HttpServer): Server {
       });
     });
 
-    // ── Presence List Request ───────────────────────
+    // ââ Presence List Request âââââââââââââââââââââââ
     socket.on("presence-request", (data: { pageId: string }) => {
       if (!data.pageId) return;
 
@@ -154,7 +154,7 @@ export function createCollaborationServer(httpServer: HttpServer): Server {
       socket.emit("presence-list", { pageId: data.pageId, users: presenceList });
     });
 
-    // ── Leave Room ──────────────────────────────────
+    // ââ Leave Room ââââââââââââââââââââââââââââââââââ
     socket.on("leave-room", (data: { pageId: string }) => {
       if (data.pageId) {
         leaveRoom(socket, data.pageId);
@@ -165,7 +165,7 @@ export function createCollaborationServer(httpServer: HttpServer): Server {
       }
     });
 
-    // ── Disconnect ──────────────────────────────────
+    // ââ Disconnect ââââââââââââââââââââââââââââââââââ
     socket.on("disconnect", () => {
       console.log(`[Collab] Client disconnected: ${socket.id}`);
 
@@ -175,7 +175,7 @@ export function createCollaborationServer(httpServer: HttpServer): Server {
     });
   });
 
-  // ─── Room Helpers ──────────────────────────────────
+  // âââ Room Helpers ââââââââââââââââââââââââââââââââââ
 
   async function joinRoom(socket: Socket, pageId: string, info: ClientInfo): Promise<void> {
     socket.join(`page:${pageId}`);
@@ -191,7 +191,7 @@ export function createCollaborationServer(httpServer: HttpServer): Server {
     if (!docListeners.has(pageId)) {
       const doc = await yjsManager.getDoc(pageId);
       const listener = (update: Uint8Array, origin: unknown) => {
-        // Skip updates from the origin client �?they already have it
+        // Skip updates from the origin client â?they already have it
         if (typeof origin === "string") {
           collabNamespace.to(`page:${pageId}`).except(origin).emit("yjs-update", {
             pageId,
