@@ -1,0 +1,50 @@
+﻿# Dependencies
+node_modules
+.pnp
+.pnp.*
+
+# Next.js
+.next
+out
+build
+
+# Testing
+coverage
+
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Prisma
+*.db
+*.db-journal
+
+# TypeScript
+tsconfig.tsbuildinfo
+next-env.d.ts
+
+# Generated
+/src/generated
+
+# Misc
+*.pem
+.vercel

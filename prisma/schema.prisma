@@ -1,0 +1,158 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  password  String?
+  image     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ownedWorkspaces Workspace[]
+  memberships     Member[]
+  pages           Page[]
+  comments        Comment[]
+  snapshots       Snapshot[]
+  versions        PageVersion[]
+}
+
+model Workspace {
+  id        String   @id @default(uuid())
+  name      String
+  icon      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  members     Member[]
+  pages       Page[]
+  invitations Invitation[]
+}
+
+
+
+model Member {
+  id        String     @id @default(uuid())
+  role      String @default("MEMBER")
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  userId      String
+  workspaceId String
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, workspaceId])
+}
+
+model Invitation {
+  id        String     @id @default(uuid())
+  email     String
+  role      String @default("MEMBER")
+  token     String     @unique
+  expiresAt DateTime
+  createdAt DateTime   @default(now())
+
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([email, workspaceId])
+}
+
+model Page {
+  id        String   @id @default(uuid())
+  title     String
+  icon      String?
+  content   String?
+  isDeleted Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  workspaceId String
+  createdById String
+
+  workspace  Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  createdBy  User          @relation(fields: [createdById], references: [id], onDelete: Cascade)
+  comments   Comment[]
+  snapshots  Snapshot[]
+  versions   PageVersion[]
+  yjsState   YjsState?
+
+  @@index([workspaceId])
+  @@index([createdById])
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  pageId    String
+  authorId  String
+  blockId   String?
+  content   String
+  resolved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  page   Page @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([pageId])
+  @@index([authorId])
+  @@index([blockId])
+}
+
+model PageVersion {
+  id        String   @id @default(uuid())
+  pageId    String
+  authorId  String
+  state     Bytes
+  label     String?
+  content   String?
+  createdAt DateTime @default(now())
+
+  page   Page @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([pageId])
+  @@index([authorId])
+  @@index([createdAt])
+}
+
+model Snapshot {
+  id        String   @id @default(uuid())
+  pageId    String
+  authorId  String
+  state     Bytes
+  metadata  String   @default("{}")
+  createdAt DateTime @default(now())
+
+  page   Page @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([pageId])
+  @@index([authorId])
+}
+
+model YjsState {
+  id          String   @id @default(uuid())
+  pageId      String   @unique
+  state       Bytes
+  stateVector Bytes?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  page Page @relation(fields: [pageId], references: [id], onDelete: Cascade)
+
+  @@index([pageId])
+}
