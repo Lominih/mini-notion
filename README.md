@@ -1,88 +1,88 @@
 ﻿# Mini Notion
 
-A lightweight, self-hosted Notion alternative built with Next.js, tRPC, Prisma, and TipTap.
+一款轻量级、可自托管的 Notion 替代方案，基于 Next.js、tRPC、Prisma 和 TipTap 构建。
 
-## Features
+## 功能特性
 
-- **Rich Text Editor** — Block-based editor powered by TipTap with support for headings, lists, code blocks, tables, images, task lists, and more
-- **Page Tree** — Organize pages in a nested hierarchy with drag-and-drop reordering
-- **Real-Time Collaboration** — Yjs-powered real-time editing with presence indicators and cursor overlays
-- **Import & Export** — Import from Markdown and HTML; export to Markdown, HTML, and PDF
-- **Comments** — Thread-based comments on pages with resolve/unresolve
-- **Version History** — Automatic version snapshots with restore capability
-- **Search** — Full-text search across page titles and content with relevance scoring
-- **Workspaces** — Multi-workspace support with role-based access control (Owner, Admin, Member, Viewer)
-- **Tags** — Tag pages for organization and filtering
-- **Templates** — Save and reuse page templates
-- **Favorites** — Star frequently accessed pages
-- **Auth** — JWT-based authentication with refresh tokens
+- **富文本编辑器** — 基于 TipTap 的块级编辑器，支持标题、列表、代码块、表格、图片、任务列表等
+- **页面树** — 嵌套层级组织页面，支持拖拽排序
+- **实时协作** — 基于 Yjs 的实时编辑，支持在线状态指示和光标覆盖
+- **导入导出** — 支持从 Markdown 和 HTML 导入；导出为 Markdown、HTML 和 PDF
+- **评论系统** — 页面级线程式评论，支持标记已解决/未解决
+- **版本历史** — 自动版本快照，支持恢复
+- **全文搜索** — 跨页面标题和内容的全文检索，支持相关性评分
+- **工作空间** — 多工作空间支持，基于角色的访问控制（Owner、Admin、Member、Viewer）
+- **标签** — 为页面添加标签，便于组织和筛选
+- **模板** — 保存和复用页面模板
+- **收藏** — 标记常用页面
+- **身份认证** — 基于 JWT 的认证，支持刷新令牌
 
-## Tech Stack
+## 技术栈
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | Next.js 16, React 19, TipTap, Tailwind CSS v4 |
-| API | tRPC v11, Zod validation |
-| Database | SQLite via Prisma 7 |
-| Real-Time | Yjs, Socket.IO |
-| Auth | Custom JWT + bcryptjs |
-| Editor | TipTap with StarterKit + extensions |
-| Testing | Vitest |
-| Container | Docker |
+| 层级 | 技术 |
+|------|------|
+| 前端 | Next.js 16、React 19、TipTap、Tailwind CSS v4 |
+| API | tRPC v11、Zod 校验 |
+| 数据库 | SQLite（通过 Prisma 7） |
+| 实时 | Yjs、Socket.IO |
+| 认证 | 自定义 JWT + bcryptjs |
+| 编辑器 | TipTap + StarterKit + 扩展 |
+| 测试 | Vitest |
+| 容器 | Docker |
 
-## Getting Started
+## 快速开始
 
-### Prerequisites
+### 环境要求
 
 - Node.js 20+
 - npm
 
-### Installation
+### 安装
 
 ```bash
-# Clone the repository
+# 克隆仓库
 git clone <repo-url>
 cd mini-notion
 
-# Install dependencies
+# 安装依赖
 npm install
 
-# Set up environment
+# 配置环境变量
 cp .env.example .env
 
-# Generate Prisma client
+# 生成 Prisma Client
 npx prisma generate
 
-# Run migrations
+# 运行数据库迁移
 npx prisma migrate dev
 
-# Seed the database
+# 初始化数据库
 npx prisma db seed
 
-# Start development server
+# 启动开发服务器
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+在浏览器中打开 [http://localhost:3000](http://localhost:3000)。
 
-### Demo Credentials
+### 演示账号
 
-After seeding, you can log in with:
+初始化数据后，可使用以下账号登录：
 
-| Role | Email | Password |
-|------|-------|----------|
+| 角色 | 邮箱 | 密码 |
+|------|------|------|
 | Admin | admin@example.com | admin123 |
 | Member | member@example.com | member123 |
 
 ## Docker
 
-### Quick Start
+### 快速启动
 
 ```bash
 docker compose up -d
 ```
 
-### Build Manually
+### 手动构建
 
 ```bash
 docker build -t mini-notion .
@@ -93,45 +93,45 @@ docker run -p 3000:3000 \
   mini-notion
 ```
 
-## Project Structure
+## 项目结构
 
 ```
 mini-notion/
 ├── prisma/
-│   ├── schema.prisma          # Database schema
-│   ├── seed.ts                # Demo data seeder
-│   └── config.ts              # Prisma config
+│   ├── schema.prisma          # 数据库 Schema
+│   ├── seed.ts                # 演示数据填充
+│   └── config.ts              # Prisma 配置
 ├── src/
 │   ├── app/                   # Next.js App Router
-│   │   ├── api/               # API routes (tRPC, auth)
+│   │   ├── api/               # API 路由（tRPC、auth）
 │   │   ├── globals.css
 │   │   ├── layout.tsx
 │   │   └── page.tsx
-│   ├── components/            # React components
-│   │   ├── collaboration/     # Real-time cursors & presence
-│   │   └── editor/            # TipTap editor & block components
-│   ├── hooks/                 # React hooks
-│   ├── lib/                   # Utilities & config
-│   │   ├── prisma.ts          # Prisma client singleton
-│   │   ├── serializer.ts      # TipTap ↔ Markdown conversion
-│   │   └── trpc.tsx           # tRPC client setup
-│   ├── server/                # Server-side code
-│   │   ├── auth.ts            # JWT auth helpers
-│   │   ├── context.ts         # tRPC context
-│   │   ├── db.ts              # Database client
-│   │   ├── trpc.ts            # tRPC initialization
-│   │   ├── collaboration/     # Yjs WebSocket server
-│   │   ├── routers/           # tRPC routers
-│   │   │   ├── _app.ts        # Root router
-│   │   │   ├── page.ts        # Page CRUD
-│   │   │   ├── io.ts          # Import/Export
-│   │   │   ├── comment.ts     # Comments
-│   │   │   ├── member.ts      # Workspace members
-│   │   │   ├── tag.ts         # Tags
-│   │   │   ├── template.ts    # Templates
-│   │   │   ├── user.ts        # User profile
-│   │   │   └── workspace.ts   # Workspace management
-│   │   └── services/          # Business logic
+│   ├── components/            # React 组件
+│   │   ├── collaboration/     # 实时光标与在线状态
+│   │   └── editor/            # TipTap 编辑器与块组件
+│   ├── hooks/                 # React Hooks
+│   ├── lib/                   # 工具函数与配置
+│   │   ├── prisma.ts          # Prisma Client 单例
+│   │   ├── serializer.ts      # TipTap ↔ Markdown 转换
+│   │   └── trpc.tsx           # tRPC Client 配置
+│   ├── server/                # 服务端代码
+│   │   ├── auth.ts            # JWT 认证工具
+│   │   ├── context.ts         # tRPC 上下文
+│   │   ├── db.ts              # 数据库客户端
+│   │   ├── trpc.ts            # tRPC 初始化
+│   │   ├── collaboration/     # Yjs WebSocket 服务端
+│   │   ├── routers/           # tRPC Router
+│   │   │   ├── _app.ts        # 根 Router
+│   │   │   ├── page.ts        # 页面 CRUD
+│   │   │   ├── io.ts          # 导入/导出
+│   │   │   ├── comment.ts     # 评论
+│   │   │   ├── member.ts      # 工作空间成员
+│   │   │   ├── tag.ts         # 标签
+│   │   │   ├── template.ts    # 模板
+│   │   │   ├── user.ts        # 用户资料
+│   │   │   └── workspace.ts   # 工作空间管理
+│   │   └── services/          # 业务逻辑
 │   │       ├── favorites.ts
 │   │       ├── import-markdown.ts
 │   │       ├── import-html.ts
@@ -142,7 +142,7 @@ mini-notion/
 │   │       ├── search.ts
 │   │       ├── snapshots.ts
 │   │       └── version-history.ts
-│   └── __tests__/             # Unit tests
+│   └── __tests__/             # 单元测试
 │       ├── auth.test.ts
 │       ├── page-tree.test.ts
 │       ├── search.test.ts
@@ -152,77 +152,77 @@ mini-notion/
 │       ├── import-markdown.test.ts
 │       └── export-markdown.test.ts
 ├── .github/workflows/
-│   └── ci.yml                 # CI/CD pipeline
+│   └── ci.yml                 # CI/CD 流水线
 ├── Dockerfile
 ├── docker-compose.yml
 ├── vitest.config.ts
 └── package.json
 ```
 
-## API Reference
+## API 参考
 
-### tRPC Routers
+### tRPC Router
 
-All authenticated endpoints require a Bearer token in the `Authorization` header.
+所有已认证端点均需在 `Authorization` 头中携带 Bearer 令牌。
 
-#### Page Router (`page.*`)
+#### 页面 Router（`page.*`）
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `page.create` | Mutation | Create a new page |
-| `page.getById` | Query | Get page by ID |
-| `page.update` | Mutation | Update page content/title |
-| `page.delete` | Mutation | Delete page and children |
-| `page.list` | Query | List workspace pages |
-| `page.move` | Mutation | Move page to new parent |
-| `page.duplicate` | Mutation | Duplicate page subtree |
-| `page.getTree` | Query | Get full page tree |
-| `page.search` | Query | Full-text search |
-| `page.getRecent` | Query | Recently edited pages |
-| `page.toggleFavorite` | Mutation | Toggle favorite status |
+| 端点 | 方法 | 描述 |
+|------|------|------|
+| `page.create` | Mutation | 创建新页面 |
+| `page.getById` | Query | 根据 ID 获取页面 |
+| `page.update` | Mutation | 更新页面内容/标题 |
+| `page.delete` | Mutation | 删除页面及子页面 |
+| `page.list` | Query | 列出工作空间页面 |
+| `page.move` | Mutation | 移动页面到新的父级 |
+| `page.duplicate` | Mutation | 复制页面子树 |
+| `page.getTree` | Query | 获取完整页面树 |
+| `page.search` | Query | 全文搜索 |
+| `page.getRecent` | Query | 最近编辑的页面 |
+| `page.toggleFavorite` | Mutation | 切换收藏状态 |
 
-#### Import/Export Router (`io.*`)
+#### 导入/导出 Router（`io.*`）
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `io.importMarkdown` | Mutation | Import Markdown as new page |
-| `io.importHtml` | Mutation | Import HTML as new page |
-| `io.exportMarkdown` | Query | Export page as Markdown |
-| `io.exportHtml` | Query | Export page as HTML |
-| `io.exportPdf` | Query | Export page as PDF (stub) |
-| `io.batchImport` | Mutation | Import multiple Markdown pages |
+| 端点 | 方法 | 描述 |
+|------|------|------|
+| `io.importMarkdown` | Mutation | 从 Markdown 导入为新页面 |
+| `io.importHtml` | Mutation | 从 HTML 导入为新页面 |
+| `io.exportMarkdown` | Query | 导出页面为 Markdown |
+| `io.exportHtml` | Query | 导出页面为 HTML |
+| `io.exportPdf` | Query | 导出页面为 PDF（占位） |
+| `io.batchImport` | Mutation | 批量导入多个 Markdown 页面 |
 
-#### Other Routers
+#### 其他 Router
 
-- **`comment.*`** — Create, list, update, delete, and resolve page comments
-- **`tag.*`** — Add, remove, rename, and list tags
-- **`template.*`** — Create, list, use, and delete templates
-- **`workspace.*`** — Create, update, delete, and list workspaces
-- **`member.*`** — Invite, remove, and manage workspace members
-- **`user.*`** — Profile management and password changes
+- **`comment.*`** — 创建、列出、更新、删除和解决页面评论
+- **`tag.*`** — 添加、移除、重命名和列出标签
+- **`template.*`** — 创建、列出、使用和删除模板
+- **`workspace.*`** — 创建、更新、删除和列出工作空间
+- **`member.*`** — 邀请、移除和管理工作空间成员
+- **`user.*`** — 个人资料管理和密码修改
 
-## Development
+## 开发
 
-### Commands
-
-```bash
-npm run dev          # Start development server
-npm run build        # Production build
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npx vitest run       # Run all tests
-npx vitest run --watch  # Watch mode
-npx prisma studio    # Open Prisma Studio
-```
-
-### Adding Tests
-
-Tests live in `src/__tests__/` and use Vitest. Mock external dependencies (Prisma, Yjs) to keep tests fast and isolated.
+### 常用命令
 
 ```bash
-npx vitest run src/__tests__/auth.test.ts  # Run a single test file
+npm run dev          # 启动开发服务器
+npm run build        # 生产构建
+npm run start        # 启动生产服务器
+npm run lint         # 运行 ESLint
+npx vitest run       # 运行所有测试
+npx vitest run --watch  # 监听模式
+npx prisma studio    # 打开 Prisma Studio
 ```
 
-## License
+### 添加测试
+
+测试位于 `src/__tests__/`，使用 Vitest。需模拟外部依赖（Prisma、Yjs）以保持测试快速和隔离。
+
+```bash
+npx vitest run src/__tests__/auth.test.ts  # 运行单个测试文件
+```
+
+## 许可证
 
 MIT
